@@ -43,6 +43,7 @@ public class Consumer {
 	}
     /**
      * 直接接受对象。
+     * 接受 的对象 也需要实现Serializable接口:表明该类可别被序列化。
      * @param message
      * @param channel
      * @throws IOException

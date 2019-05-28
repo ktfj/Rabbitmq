@@ -56,7 +56,7 @@ public class Producer {
 	}
 	
 	/**
-	 * 直接发送order对象。
+	 * 直接发送order对象。该类实现了serializable接口:表明该类可被序列化
 	 * 注意：如果对象没有序列化 会报错。
 	 * 只能发送 string、 byte[]、serializable payloads. 
 	 * @param order
@@ -67,6 +67,9 @@ public class Producer {
 		rabbitTemplate.setReturnCallback(returnCallback);
 		CorrelationData cd=new CorrelationData();
 		cd.setId("123456");//这个Id保证消息全局唯一，在可靠性投递中,就用该Id来找到未成功投递的消息。
+		
+		//convertAndSend方法:自动将Java 对象包装成 Message 对象，Java 对象需要实现 Serializable 序列化接口
+		//推测：该方法自动把对象给序列化啦???
 		rabbitTemplate.convertAndSend("exchange-2", "springboot.a", order, cd);
 		
 	}
